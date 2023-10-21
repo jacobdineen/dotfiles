@@ -1,9 +1,13 @@
 """ Optixal's Neovim Init.vim
 autocmd VimEnter * Copilot setup
+autocmd VimEnter * NERDTree | wincmd p
 """ Vim-Plug
 call plug#begin()
 
 " Core (treesitter, nvim-lspconfig, nvim-cmp, nvim-telescope, nvim-lualine)
+
+Plug 'ryanoasis/vim-devicons'
+Plug 'preservim/nerdtree'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'nvim-treesitter/playground'
 Plug 'neovim/nvim-lspconfig'
@@ -125,7 +129,7 @@ augroup DraculaTreesitterSourcingFix
 augroup end
 
 " nvim-cmp
-set completeopt=menu,menuone,noselect
+"set completeopt=menu,menuone,noselect
 
 " signify
 let g:signify_sign_add = '│'
@@ -165,7 +169,7 @@ servers = {
     --'tsserver', -- uncomment for typescript. See https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md for other language servers
 }
 require('treesitter-config')
-require('nvim-cmp-config')
+--require('nvim-cmp-config')
 require('lspconfig-config')
 require('telescope-config')
 require('lualine-config')
@@ -209,7 +213,7 @@ autocmd FileType python nmap <leader>p :Black<CR>
 
 " Solidity (requires: npm install --save-dev prettier prettier-plugin-solidity)
 autocmd Filetype solidity nmap <leader>p :0,$!npx prettier %<CR>
-
+autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 " Telescope mappings
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
